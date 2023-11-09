@@ -1,31 +1,55 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { getProduct } from './Pers';
 
 function Product() {
 
-    const [name, setName] = useState("Joe")
-    const [age, setAge] = useState(21)
-    
-    useEffect( () => {
-        alert("Hello, "+ name);
-    },[name] )
+  const [products, setProducts] = useState([]);
 
+  useEffect(() => {
+    handleGetProducts();
+  }, []);
 
+  function handleGetProducts() {
+    getProduct()
+      .then((resp) => {
+        setProducts(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
-    <div>
-      <h2> Product List: </h2>
-
-      {/* Name */}
-      <p> Name: {name} &nbsp; &nbsp;
-      <button onClick={ () => setName("Youssef")}> Change Name </button>
-      </p>
-
-      {/* Age */}
-      <p> Age: {age} &nbsp; &nbsp;
-      <button onClick={ () => setAge(45)}> Change Age </button>
-      </p>
+    <div className="container">
+      <div className="card">
+        <div className="card-title">
+          <h1>Product List</h1>
+        </div>
+        <div className="card-body">
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((prd) => (
+                <tr key={prd.id}>
+                  <td>{prd.id}</td>
+                  <td>{prd.name}</td>
+                  <td>{prd.price}</td>
+                  <td>{prd.Type}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Product
+export default Product;
