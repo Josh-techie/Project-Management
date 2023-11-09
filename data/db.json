@@ -5,12 +5,6 @@
       "name": "Art Table By Van Gogh",
       "price": 4700,
       "Type": "Art"
-    },
-    {
-      "id": 3,
-      "name": "Detangler Brush",
-      "price": 890,
-      "Type": "Accessories"
     }
   ]
 }
